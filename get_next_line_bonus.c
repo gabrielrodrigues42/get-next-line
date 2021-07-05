@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gandrade <gandrade@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/13 15:44:31 by gandrade          #+#    #+#             */
-/*   Updated: 2021/07/04 14:13:52 by gandrade         ###   ########.fr       */
+/*   Created: 2021/07/04 01:41:40 by gandrade          #+#    #+#             */
+/*   Updated: 2021/07/04 14:11:44 by gandrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	return_line(int rd, char **storage, char **line);
 static int	check_error(int rd, int fd, char *buffer);
@@ -18,7 +18,7 @@ static void	ft_strclear(char **str);
 
 int	get_next_line(int fd, char **line)
 {
-	static char	*storage;
+	static char	*storage[OPEN_MAX];
 	char		*buffer;
 	char		*aux;
 	int			rd;
@@ -29,20 +29,20 @@ int	get_next_line(int fd, char **line)
 	while (rd > 0)
 	{
 		buffer[rd] = '\0';
-		if (!storage)
-			storage = ft_strdup(buffer);
+		if (!storage[fd])
+			storage[fd] = ft_strdup(buffer);
 		else
 		{
-			aux = ft_strjoin(storage, buffer);
-			free(storage);
-			storage = aux;
+			aux = ft_strjoin(storage[fd], buffer);
+			free(storage[fd]);
+			storage[fd] = aux;
 		}
-		if (ft_strchr(storage, '\n'))
+		if (ft_strchr(storage[fd], '\n'))
 			break ;
 		rd = read(fd, buffer, BUFFER_SIZE);
 	}
 	free(buffer);
-	return (return_line(rd, &storage, line));
+	return (return_line(rd, &storage[fd], line));
 }
 
 static int	return_line(int rd, char **storage, char **line)
@@ -73,7 +73,7 @@ static int	return_line(int rd, char **storage, char **line)
 	return (END_OF_FILE);
 }
 
-static int	check_error(int rd, int fd, char *buffer)
+static int	check_error( int rd, int fd, char *buffer)
 {
 	if (rd < 0 || fd < 0 || !buffer || BUFFER_SIZE < 1)
 		return (ERROR);

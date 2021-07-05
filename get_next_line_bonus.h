@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gandrade <gandrade@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/13 15:44:33 by gandrade          #+#    #+#             */
-/*   Updated: 2021/07/03 19:46:24 by gandrade         ###   ########.fr       */
+/*   Created: 2021/07/04 01:41:24 by gandrade          #+#    #+#             */
+/*   Updated: 2021/07/04 01:50:48 by gandrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 # define LINE_READ 1
 # define END_OF_FILE 0
